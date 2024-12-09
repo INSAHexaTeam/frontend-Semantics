@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   sportifs: Sportif[] = [];
   has_list: boolean = false;
   sportifs_display: Sportif[] = [];
-  
+
   currentPage: number = 1;
   itemsPerPage: number = 36;
   totalPages: number = 0;
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    switch(event.key) {
+    switch (event.key) {
       case 'ArrowRight':
         this.nextPage();
         break;

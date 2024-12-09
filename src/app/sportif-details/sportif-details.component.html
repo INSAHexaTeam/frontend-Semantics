@@ -1,7 +1,30 @@
+<app-error></app-error>
 <div class="head">
   <img
     [src]="this.sportif?.image || 'assets/sportif.png'"
     alt="image de {{ this.sportif?.name }}"
   />
   <h3>{{ this.sportif?.name }}</h3>
+  <p>{{ this.sportif?.description }}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Clé</th>
+        <th>Valeur</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of entries; track $index){
+
+      <tr>
+        <td>{{ $index }}</td>
+        <td>{{ item[0] }}</td>
+        <td>
+          {{ item[1] }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>

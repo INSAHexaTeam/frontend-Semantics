@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   itemsPerPage: number = 36;
   totalPages: number = 0;
 
+  sortOrder: 'asc' | 'desc' = 'asc';
+
   constructor(
     private sharedDataService: SharedDataService,
     private SportifService: SportifService,
@@ -75,5 +77,25 @@ export class HomeComponent implements OnInit {
         this.previousPage();
         break;
     }
+  }
+
+  sortByName() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sportifs.sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name);
+      return this.sortOrder === 'asc' ? comparison : -comparison;
+    });
+    this.updateDisplayedSportifs();
+  }
+
+  sortByBirthDate() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sportifs.sort((a, b) => {
+      const dateA = new Date(a.birthDate);
+      const dateB = new Date(b.birthDate);
+      const comparison = dateA.getTime() - dateB.getTime();
+      return this.sortOrder === 'asc' ? comparison : -comparison;
+    });
+    this.updateDisplayedSportifs();
   }
 }

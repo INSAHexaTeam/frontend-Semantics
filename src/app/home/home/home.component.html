@@ -1,4 +1,17 @@
 @if(this.has_list){
+<div class="sort-buttons">
+  <button 
+    (click)="sortByName()" 
+    class="sort-button">
+    Trier par nom {{ sortOrder === 'asc' ? '↑' : '↓' }}
+  </button>
+  <button 
+    (click)="sortByBirthDate()" 
+    class="sort-button">
+    Trier par date de naissance {{ sortOrder === 'asc' ? '↑' : '↓' }}
+  </button>
+</div>
+
 <div class="cardList">
   @for(sportif of this.sportifs_display; track $index){
   <app-sportif-card

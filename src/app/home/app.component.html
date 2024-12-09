@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sport'IF</title>
+  </head>
+  <body>
+    <app-header
+      [sportifs]="this.sportifs"
+      (listsUpdated)="this.handleListsUpdate($event)"
+    ></app-header>
+    @if(this.has_list){
+    <div class="cardList">
+      @for(sportif of this.sportifs_display; track $index){
+      <app-sportif-card
+        title="{{ sportif.name }}"
+        [image]="sportif.image ? sportif.image : 'assets/sportif.png'"
+      ></app-sportif-card>
+      }
+    </div>
+    }
+    <app-footer></app-footer>
+    <router-outlet></router-outlet>
+  </body>
+</html>

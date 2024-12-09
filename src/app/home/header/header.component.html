@@ -1,0 +1,40 @@
+<div class="header">
+  <div class="top-left">
+    <img class="icon" src="assets/sportif.png" alt="sportif" />
+    <div class="top-left-text">
+      <h1>Sport'IF</h1>
+      <h3>La référence du sport</h3>
+    </div>
+  </div>
+  <div class="search-bar">
+    <div class="up">
+      <input
+        type="text"
+        [(ngModel)]="query"
+        (input)="onSearchInput()"
+        placeholder="Rechercher un sportif"
+      />
+
+      <button (click)="searchSportif()">Rechercher</button>
+    </div>
+    <div class="down">
+      <div class="search">
+        @if (this.suggestion.length > 0) {
+        <ul class="suggestions">
+          @for (sugg of this.suggestion; track $index) {
+
+          <li (click)="selectSuggestion(sugg)">
+            {{ sugg.name }}
+          </li>
+          }
+        </ul>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="top-right">
+    <a href="https://github.com/INSAHexaTeam" target="_blank" class="hexa-team">
+      <img src="assets/INSA.png" alt="INSA" />
+    </a>
+  </div>
+</div>

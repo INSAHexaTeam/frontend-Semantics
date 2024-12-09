@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
     this.sportifService
       .getSportifByName(this.query)
       .subscribe((sportifs: Sportif[]) => {
+        this.router.navigate(['home']);
         this.sharedService.setData(sportifs);
       });
   }

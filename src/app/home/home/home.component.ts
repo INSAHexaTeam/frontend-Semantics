@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
     });
   }
   sportifDetails(sportif: Sportif) {
+    console.log(sportif);
+
     this.router.navigate(['sportif', sportif.athleteId]);
   }
 }

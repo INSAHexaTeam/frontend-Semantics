@@ -24,4 +24,9 @@ export class SportifService {
       `${ApiURL}/fetchAthleteByName?name=${name}`
     ) as Observable<Sportif[]>;
   }
+  getSportifInfo(id: string): Observable<Sportif> {
+    return this.http.get(
+      `${ApiURL}/fetchAthleteInformations?athleteId=${id}`
+    ) as Observable<Sportif>;
+  }
 }

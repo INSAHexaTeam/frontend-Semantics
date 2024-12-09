@@ -1,1 +1,7 @@
-<p>sportif-details works!</p>
+<div class="head">
+  <img
+    [src]="this.sportif?.image || 'assets/sportif.png'"
+    alt="image de {{ this.sportif?.name }}"
+  />
+  <h3>{{ this.sportif?.name }}</h3>
+</div>

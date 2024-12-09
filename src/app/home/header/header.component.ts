@@ -50,4 +50,8 @@ export class HeaderComponent implements OnInit {
         this.sharedService.setData(sportifs);
       });
   }
+
+  scrollToTop() {
+    this.router.navigate(['/']);
+  }
 }

@@ -12,7 +12,4 @@ import { Router } from '@angular/router';
 export class SportifCardComponent {
   @Input() sportif!: Sportif;
   constructor(private router: Router) {}
-  sportifDetails() {
-    this.router.navigate(['sportif', this.sportif.athleteId]);
-  }
 }

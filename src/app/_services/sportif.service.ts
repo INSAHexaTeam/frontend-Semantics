@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiURL } from '../_interfaces/api-url';
-import { Sportif } from '../_interfaces/sportif';
+import { Sportif, SportifFullDescription } from '../_interfaces/sportif';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,5 +23,10 @@ export class SportifService {
     return this.http.get(
       `${ApiURL}/fetchAthleteByName?name=${name}`
     ) as Observable<Sportif[]>;
+  }
+  getSportifInfo(id: string): Observable<SportifFullDescription> {
+    return this.http.get(
+      `${ApiURL}/fetchAthleteInformations?athleteId=${id}`
+    ) as Observable<SportifFullDescription>;
   }
 }

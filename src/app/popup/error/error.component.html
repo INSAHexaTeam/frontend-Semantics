@@ -1,0 +1,19 @@
+@if (display) {
+<div class="popup-parent">
+  <div class="progress-bar"></div>
+  <div class="popup">
+    <div class="right">
+      <img src="assets/remove.png" alt="cross icon" />
+    </div>
+    <div class="left">
+      @if(title == null){
+      <h3>Une erreur est survenue</h3>
+      } @else{
+      <h3>{{ this.title }}</h3>
+      }
+      <p>{{ this.texte }}</p>
+    </div>
+  </div>
+</div>
+
+}

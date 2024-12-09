@@ -1,0 +1,54 @@
+.popup-parent {
+  background-color: white;
+  position: absolute;
+  top: 100px;
+  right: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 20%;
+  height: 100px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: solid red 1px;
+}
+
+.popup {
+  display: flex;
+  flex-direction: row;
+  height: 95%;
+  width: 100%;
+}
+.right {
+  width: 30%;
+}
+.right > img {
+  width: auto;
+  height: 100%;
+}
+.left {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+p,
+h3 {
+  margin: 0;
+}
+.progress-bar {
+  height: 5px;
+  background-color: red;
+  width: 90%;
+  animation: decreaseWidth 3s linear forwards;
+}
+
+@keyframes decreaseWidth {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

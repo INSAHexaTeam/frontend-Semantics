@@ -1,8 +1,9 @@
 import { FormControl, FormsModule } from '@angular/forms';
 import { Sportif } from '../../_interfaces/sportif';
 import { SportifService } from '../../_services/sportif.service';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedDataService } from '../../_services/shared-data.service';
 
 @Component({
   selector: 'app-header',
@@ -11,18 +12,22 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent {
-  @Input() sportifs: Sportif[] = [];
-
+export class HeaderComponent implements OnInit {
+  sportifs: Sportif[] = [];
   suggestion: Sportif[] = [];
   searchResult: Sportif[] = [];
   query: string = '';
 
-  @Output() listsUpdated = new EventEmitter<{
-    searchResult: Sportif[];
-  }>();
-
-  constructor(private sportifService: SportifService, private router: Router) {}
+  constructor(
+    private sportifService: SportifService,
+    private router: Router,
+    private sharedService: SharedDataService
+  ) {}
+  ngOnInit(): void {
+    this.sharedService.input$.subscribe((sportifs) => {
+      this.sportifs = sportifs;
+    });
+  }
 
   onSearchInput() {
     if (this.query.trim() === '') {
@@ -42,7 +47,7 @@ export class HeaderComponent {
     this.sportifService
       .getSportifByName(this.query)
       .subscribe((sportifs: Sportif[]) => {
-        this.listsUpdated.emit({ searchResult: sportifs });
+        this.sharedService.setData(sportifs);
       });
   }
 }

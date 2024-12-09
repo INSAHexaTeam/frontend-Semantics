@@ -1,4 +1,7 @@
-<div class="card">
-  <h3>{{ this.title }}</h3>
-  <img [src]="image || 'assets/sportif.png'" alt="image de {{ this.title }}" />
+<div (click)="sportifDetails()" class="card">
+  <h3>{{ this.sportif.name }}</h3>
+  <img
+    [src]="this.sportif.image || 'assets/sportif.png'"
+    alt="image de {{ this.sportif.name }}"
+  />
 </div>

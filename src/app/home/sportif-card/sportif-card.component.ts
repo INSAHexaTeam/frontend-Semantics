@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Sportif } from '../../_interfaces/sportif';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sportif-card',
@@ -8,6 +10,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './sportif-card.component.css',
 })
 export class SportifCardComponent {
-  @Input() title: string = '';
-  @Input() image: string = 'assets/sportif.png';
+  @Input() sportif!: Sportif;
+  constructor(private router: Router) {}
+  sportifDetails() {
+    this.router.navigate(['sportif', this.sportif.athleteId]);
+  }
 }

@@ -1,0 +1,7 @@
+@if(this.has_list){
+<div class="cardList">
+  @for(sportif of this.sportifs_display; track $index){
+  <app-sportif-card [sportif]="sportif"></app-sportif-card>
+  }
+</div>
+}

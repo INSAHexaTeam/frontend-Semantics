@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.sharedDataService.data$.subscribe((data) => {
       this.sportifs = data;
-      this.sportifs_display = data;
+      this.sportifs_display = data.slice(0, 30);
       this.has_list = true;
     });
   }

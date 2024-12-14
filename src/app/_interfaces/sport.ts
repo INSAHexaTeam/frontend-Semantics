@@ -1,8 +1,8 @@
 import { Sportif } from './sportif';
 
 export interface Sport {
-  nom: string;
-  type: string;
-  dateCreation: Date;
-  sportifs: Sportif[];
+  name: string;
+  image: string;
+  description: string;
+  teamSize: number;
 }

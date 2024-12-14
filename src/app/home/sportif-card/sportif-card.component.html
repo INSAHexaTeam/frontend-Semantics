@@ -2,6 +2,7 @@
   <h3>{{ this.sportif.name }}</h3>
   <img
     [src]="this.sportif.image || 'assets/sportif.png'"
+    (error)="handleImageError($event)"
     alt="image de {{ this.sportif.name }}"
   />
 </div>

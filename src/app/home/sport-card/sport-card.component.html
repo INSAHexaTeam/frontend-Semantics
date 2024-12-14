@@ -1,0 +1,8 @@
+<div class="card">
+  <h3>{{ this.sport.name }}</h3>
+  <img
+    [src]="this.sport.image"
+    (error)="handleImageError($event)"
+    alt="image de {{ this.sport.name }}"
+  />
+</div>

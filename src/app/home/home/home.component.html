@@ -1,39 +1,50 @@
+<div class="choice-button">
+  <button (click)="changeDisplay()">
+    {{ this.is_sportifs_page ? 'Sports' : 'Sportifs' }}
+  </button>
+</div>
+
 @if(this.has_list){
-<div class="sort-buttons">
-  <button 
-    (click)="sortByName()" 
-    class="sort-button">
-    Trier par nom {{ sortOrder === 'asc' ? '↑' : '↓' }}
-  </button>
-  <button 
-    (click)="sortByBirthDate()" 
-    class="sort-button">
-    Trier par date de naissance {{ sortOrder === 'asc' ? '↑' : '↓' }}
-  </button>
-</div>
+  @if(this.is_sportifs_page){
+    <!-- Affichage des sportifs -->
+    <div class="sort-buttons">
+      <button (click)="sortByName()" class="sort-button">
+        Trier par nom {{ sortOrder === 'asc' ? '↑' : '↓' }}
+      </button>
+      <button (click)="sortByBirthDate()" class="sort-button">
+        Trier par date de naissance {{ sortOrder === 'asc' ? '↑' : '↓' }}
+      </button>
+    </div>
 
-<div class="cardList">
-  @for(sportif of this.sportifs_display; track $index){
-  <app-sportif-card
-    (click)="sportifDetails(sportif)"
-    [sportif]="sportif"
-  ></app-sportif-card>
+    <div class="cardList">
+      @for(sportif of this.sportifs_display; track sportif.athleteId){
+        <app-sportif-card
+          (click)="sportifDetails(sportif)"
+          [sportif]="sportif"
+        ></app-sportif-card>
+      }
+    </div>
+  } @else {
+    <div class="cardList">
+      @for(sport of this.sports_display; track sport.name){
+        <app-sport-card [sport]="sport"></app-sport-card>
+      }
+    </div>
   }
-</div>
 
-<div class="pagination">
-  <button 
-    (click)="previousPage()" 
-    [disabled]="currentPage === 1"
-    class="pagination-button">
-    Précédent
-  </button>
-  <span class="page-info">Page {{currentPage}} sur {{totalPages}}</span>
-  <button 
-    (click)="nextPage()" 
-    [disabled]="currentPage === totalPages"
-    class="pagination-button">
-    Suivant
-  </button>
-</div>
+  <div class="pagination">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="pagination-button">
+      Précédent
+    </button>
+    <span class="page-info">Page {{currentPage}} sur {{totalPages}}</span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="pagination-button">
+      Suivant
+    </button>
+  </div>
 }

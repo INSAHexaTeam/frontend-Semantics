@@ -26,7 +26,10 @@ export class SportifDetailsComponent {
     this.sportifService.getSportifInfo(this.athleteId!).subscribe(
       (data) => {
         this.sportif = data;
-        this.entries = Object.entries(data);
+
+        let sportifInfo = this.filterNonEmptyFields(data);
+
+        this.entries = Object.entries(sportifInfo);
       },
       (error) => {
         this.errorPopup.display = true;
@@ -36,6 +39,20 @@ export class SportifDetailsComponent {
           this.router.navigate(['/home']);
         }, 3000);
       }
+    );
+  }
+  filterNonEmptyFields(obj: any): any {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([key, value]) => {
+        return (
+          value !== null &&
+          value !== undefined &&
+          value !== '' &&
+          (!Array.isArray(value) ||
+            (value.length > 0 && value.some((v) => v !== ''))) &&
+          (typeof value !== 'object' || Object.keys(value).length > 0)
+        );
+      })
     );
   }
 }

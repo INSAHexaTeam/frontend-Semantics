@@ -1,3 +1,6 @@
+main {
+  height: 80vh;
+}
 .cardList {
   display: flex;
   flex-direction: row;
@@ -7,9 +10,10 @@
   justify-content: center;
 }
 
-app-sportif-card {
-  width: 180px;
-  height: 180px;
+app-sportif-card,
+app-sport-card {
+  width: 200px;
+  height: 250px;
 }
 
 .pagination {

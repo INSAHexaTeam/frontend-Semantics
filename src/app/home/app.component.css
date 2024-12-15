@@ -1,9 +1,6 @@
-.cardList {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+app-header {
+  height: 20vh;
 }
-app-sportif-card {
-  width: 200px;
-  height: 200px;
+app-footer {
+  height: 3vh;
 }

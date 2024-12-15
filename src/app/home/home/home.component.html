@@ -1,50 +1,67 @@
-<div class="choice-button">
-  <button (click)="changeDisplay()">
-    {{ this.is_sportifs_page ? 'Sports' : 'Sportifs' }}
-  </button>
-</div>
+<main>
+  @if(this.has_list){
+  <!-- Affichage des sportifs -->
+  <div class="sort-buttons">
+    <button (click)="sortByName()" class="sort-button">
+      Trier par nom {{ sortOrder === "asc" ? "↑" : "↓" }}
+    </button>
+    <!-- <button (click)="sortByBirthDate()" class="sort-button">
+        Trier par date de naissance {{ sortOrder === "asc" ? "↑" : "↓" }}
+      </button> -->
+  </div>
 
-@if(this.has_list){
-  @if(this.is_sportifs_page){
-    <!-- Affichage des sportifs -->
-    <div class="sort-buttons">
-      <button (click)="sortByName()" class="sort-button">
-        Trier par nom {{ sortOrder === 'asc' ? '↑' : '↓' }}
-      </button>
-      <button (click)="sortByBirthDate()" class="sort-button">
-        Trier par date de naissance {{ sortOrder === 'asc' ? '↑' : '↓' }}
-      </button>
-    </div>
-
-    <div class="cardList">
-      @for(sportif of this.sportifs_display; track sportif.athleteId){
-        <app-sportif-card
-          (click)="sportifDetails(sportif)"
-          [sportif]="sportif"
-        ></app-sportif-card>
-      }
-    </div>
-  } @else {
-    <div class="cardList">
-      @for(sport of this.sports_display; track sport.name){
-        <app-sport-card [sport]="sport"></app-sport-card>
-      }
-    </div>
-  }
+  <div class="cardList">
+    @for(sportif of this.sportifs_display; track sportif.athleteId){
+    <app-sportif-card
+      (click)="sportifDetails(sportif)"
+      [sportif]="sportif"
+    ></app-sportif-card>
+    }
+  </div>
 
   <div class="pagination">
     <button
-      (click)="previousPage()"
-      [disabled]="currentPage === 1"
-      class="pagination-button">
+      (click)="previousSportifPage()"
+      [disabled]="currentSportifPage === 1"
+      class="pagination-button"
+    >
       Précédent
     </button>
-    <span class="page-info">Page {{currentPage}} sur {{totalPages}}</span>
+    <span class="page-info"
+      >Page {{ currentSportifPage }} sur {{ totalSportifPages }}</span
+    >
     <button
-      (click)="nextPage()"
-      [disabled]="currentPage === totalPages"
-      class="pagination-button">
+      (click)="nextPageSportif()"
+      [disabled]="currentSportifPage === totalSportifPages"
+      class="pagination-button"
+    >
       Suivant
     </button>
   </div>
-}
+  <div class="cardList">
+    @for(sport of this.sports_display; track sport.name){
+    <app-sport-card [sport]="sport"></app-sport-card>
+    }
+  </div>
+
+  <div class="pagination">
+    <button
+      (click)="previousSportPage()"
+      [disabled]="currentSportPage === 1"
+      class="pagination-button"
+    >
+      Précédent
+    </button>
+    <span class="page-info"
+      >Page {{ currentSportPage }} sur {{ totalSportPages }}</span
+    >
+    <button
+      (click)="nextPageSport()"
+      [disabled]="currentSportPage === totalSportifPages"
+      class="pagination-button"
+    >
+      Suivant
+    </button>
+  </div>
+  }
+</main>

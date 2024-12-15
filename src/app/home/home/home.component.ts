@@ -19,13 +19,14 @@ export class HomeComponent implements OnInit {
   sportifs: Sportif[] = [];
   sports: Sport[] = [];
   has_list: boolean = false;
-  is_sportifs_page: boolean = true;
   sportifs_display: Sportif[] = [];
   sports_display: Sport[] = [];
 
-  currentPage: number = 1;
-  itemsPerPage: number = 36;
-  totalPages: number = 0;
+  currentSportifPage: number = 1;
+  currentSportPage: number = 1;
+  itemsPerPage: number = 8;
+  totalSportifPages: number = 0;
+  totalSportPages: number = 0;
 
   private sportifsTotalPages: number = 0;
   private sportsTotalPages: number = 0;
@@ -37,14 +38,15 @@ export class HomeComponent implements OnInit {
     private SportifService: SportifService,
     private SportService: SportService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     // Chargement initial des sportifs
     this.SportifService.getAllSportifs().subscribe((s: Sportif[]) => {
       this.sportifs = s;
-      this.sportifsTotalPages = Math.ceil(this.sportifs.length / this.itemsPerPage);
-      this.updateDisplayedItems();
+      this.sportifsTotalPages = Math.ceil(
+        this.sportifs.length / this.itemsPerPage
+      );
       this.has_list = true;
     });
 
@@ -52,55 +54,63 @@ export class HomeComponent implements OnInit {
     this.SportService.getAllOlympicSports().subscribe((s: Sport[]) => {
       this.sports = s;
       this.sportsTotalPages = Math.ceil(this.sports.length / this.itemsPerPage);
-      this.updateDisplayedItems();
+
+      this.updateSportDisplayedItems();
+      this.updateSportifDisplayedItems();
       this.has_list = true;
     });
 
     // Souscription aux changements de données
     this.sharedDataService.data$.subscribe((data) => {
-      if (data.sportifs) {
-        this.sportifs = data.sportifs;
-        this.sportifsTotalPages = Math.ceil(this.sportifs.length / this.itemsPerPage);
-        this.updateDisplayedItems();
-      }
-      if (data.sports) {
-        this.sports = data.sports; 
-        this.sportsTotalPages = Math.ceil(this.sports.length / this.itemsPerPage);
-        this.updateDisplayedItems();
-      }
+      this.sportifs = data;
+      console.log(this.sportifs.length);
+
+      this.sportifsTotalPages = Math.ceil(
+        this.sportifs.length / this.itemsPerPage
+      );
+      this.updateSportifDisplayedItems();
     });
   }
 
-  private updateDisplayedItems() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  private updateSportifDisplayedItems() {
+    const startIndex = (this.currentSportifPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
 
-    if (this.is_sportifs_page) {
-      this.sportifs_display = this.sportifs.slice(startIndex, endIndex);
-      this.totalPages = this.sportifsTotalPages;
-    } else {
-      this.sports_display = this.sports.slice(startIndex, endIndex);
-      this.totalPages = this.sportsTotalPages;
+    this.sportifs_display = this.sportifs.slice(startIndex, endIndex);
+    this.totalSportifPages = this.sportifsTotalPages;
+  }
+  private updateSportDisplayedItems() {
+    const startIndex = (this.currentSportPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+
+    this.sports_display = this.sports.slice(startIndex, endIndex);
+    this.totalSportPages = this.sportsTotalPages;
+  }
+
+  nextPageSportif() {
+    if (this.currentSportifPage < this.totalSportifPages) {
+      this.currentSportifPage++;
+      this.updateSportifDisplayedItems();
     }
   }
 
-  changeDisplay() {
-    this.is_sportifs_page = !this.is_sportifs_page;
-    this.currentPage = 1;
-    this.updateDisplayedItems();
+  nextPageSport() {
+    if (this.currentSportPage < this.totalSportPages) {
+      this.currentSportPage++;
+      this.updateSportDisplayedItems();
+    }
   }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateDisplayedItems();
+  previousSportPage() {
+    if (this.currentSportPage > 1) {
+      this.currentSportPage--;
+      this.updateSportDisplayedItems();
     }
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateDisplayedItems();
+  previousSportifPage() {
+    if (this.currentSportifPage > 1) {
+      this.currentSportifPage--;
+      this.updateSportifDisplayedItems();
     }
   }
 
@@ -114,28 +124,28 @@ export class HomeComponent implements OnInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     switch (event.key) {
       case 'ArrowRight':
-        this.nextPage();
+        this.nextPageSportif();
+        this.nextPageSport();
         break;
       case 'ArrowLeft':
-        this.previousPage();
+        this.previousSportifPage();
+        this.previousSportPage();
         break;
     }
   }
 
   sortByName() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    if (this.is_sportifs_page) {
-      this.sportifs.sort((a, b) => {
-        const comparison = a.name.localeCompare(b.name);
-        return this.sortOrder === 'asc' ? comparison : -comparison;
-      });
-    } else {
-      this.sports.sort((a, b) => {
-        const comparison = a.name.localeCompare(b.name);
-        return this.sortOrder === 'asc' ? comparison : -comparison;
-      });
-    }
-    this.updateDisplayedItems(); // Utilisez la méthode unifiée
+    this.sportifs.sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name);
+      return this.sortOrder === 'asc' ? comparison : -comparison;
+    });
+    this.sports.sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name);
+      return this.sortOrder === 'asc' ? comparison : -comparison;
+    });
+    this.updateSportifDisplayedItems();
+    this.updateSportDisplayedItems();
   }
 
   sortByBirthDate() {
@@ -146,6 +156,6 @@ export class HomeComponent implements OnInit {
       const comparison = dateA.getTime() - dateB.getTime();
       return this.sortOrder === 'asc' ? comparison : -comparison;
     });
-    this.updateDisplayedItems(); // Utilisez la méthode unifiée
+    this.updateSportifDisplayedItems();
   }
 }

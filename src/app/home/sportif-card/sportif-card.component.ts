@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class SportifCardComponent {
   @Input() sportif!: Sportif;
-  constructor() { }
+  constructor() {}
   handleImageError(event: any) {
-    event.target.src = 'assets/sportif.png';
+    event.target.src = 'assets/user.png';
   }
 }

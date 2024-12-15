@@ -12,6 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { SharedDataService } from '../../_services/shared-data.service';
 import { ErrorComponent } from '../../popup/error/error.component';
+import { Sport } from '../../_interfaces/sport';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,7 @@ import { ErrorComponent } from '../../popup/error/error.component';
 })
 export class HeaderComponent implements OnInit {
   sportifs: Sportif[] = [];
-  suggestion: Sportif[] = [];
+  suggestion: string[] = [];
   searchResult: Sportif[] = [];
   @ViewChild(ErrorComponent) errorPopup!: ErrorComponent;
   query: string = '';
@@ -44,12 +45,15 @@ export class HeaderComponent implements OnInit {
       return;
     }
 
-    this.suggestion = this.sportifs.filter((sportif) =>
+    let array: Sportif[] = this.sportifs.filter((sportif) =>
       sportif.name.toLowerCase().includes(this.query.toLowerCase())
     );
+    array.forEach((sportif) => {
+      this.suggestion.push(sportif.name);
+    });
   }
-  selectSuggestion(sugg: Sportif) {
-    this.query = sugg.name;
+  selectSuggestion(sugg: string) {
+    this.query = sugg;
     this.suggestion = [];
   }
   searchSportif() {
@@ -57,6 +61,7 @@ export class HeaderComponent implements OnInit {
       (sportifs: Sportif[]) => {
         this.router.navigate(['home']);
         this.sharedService.setData(sportifs);
+        this.query = '';
       },
       (error) => {
         this.errorPopup.display = true;

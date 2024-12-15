@@ -36,6 +36,7 @@ export class SportifDetailsComponent {
         this.isLoading = false;
       },
       (error) => {
+        this.isLoading = false;
         this.errorPopup.display = true;
         this.errorPopup.texte = error.error.error;
         setTimeout(() => {

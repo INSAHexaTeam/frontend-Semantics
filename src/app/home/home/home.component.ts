@@ -65,11 +65,9 @@ export class HomeComponent implements OnInit {
       this.isLoading = false;
     });
 
-    // Souscription aux changements de données
     this.sharedDataService.data$.subscribe((data) => {
       this.sportifs = data;
-      console.log(this.sportifs.length);
-
+      this.currentSportifPage = 1;
       this.sportifsTotalPages = Math.ceil(
         this.sportifs.length / this.itemsPerPage
       );

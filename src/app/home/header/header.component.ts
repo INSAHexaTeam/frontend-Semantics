@@ -13,15 +13,17 @@ import { Router } from '@angular/router';
 import { SharedDataService } from '../../_services/shared-data.service';
 import { ErrorComponent } from '../../popup/error/error.component';
 import { Sport } from '../../_interfaces/sport';
+import { LoadingScreenComponent } from '../../popup/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, ErrorComponent],
+  imports: [FormsModule, ErrorComponent, LoadingScreenComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit {
+  isLoading: boolean = false;
   sportifs: Sportif[] = [];
   suggestion: string[] = [];
   searchResult: Sportif[] = [];
@@ -34,34 +36,37 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedDataService
   ) {}
   ngOnInit(): void {
-    this.sportifService.getAllSportifs().subscribe({
-      error(err) {},
+    this.sportifService.getAllSportifs().subscribe((data: Sportif[]) => {
+      this.sportifs = data;
     });
   }
 
-  onSearchInput() {
-    if (this.query.trim() === '') {
+  onSearchInput(): void {
+    if (!this.query.trim()) {
       this.suggestion = [];
       return;
     }
 
-    let array: Sportif[] = this.sportifs.filter((sportif) =>
-      sportif.name.toLowerCase().includes(this.query.toLowerCase())
-    );
-    array.forEach((sportif) => {
-      this.suggestion.push(sportif.name);
-    });
+    this.suggestion = this.sportifs
+      .filter((sportif) =>
+        sportif.name.toLowerCase().includes(this.query.trim().toLowerCase())
+      )
+      .map((sportif) => sportif.name)
+      .filter((name, index, self) => self.indexOf(name) === index);
   }
   selectSuggestion(sugg: string) {
     this.query = sugg;
     this.suggestion = [];
   }
   searchSportif() {
+    this.isLoading = true;
     this.sportifService.getSportifByName(this.query).subscribe(
       (sportifs: Sportif[]) => {
         this.router.navigate(['home']);
         this.sharedService.setData(sportifs);
+        this.suggestion = [];
         this.query = '';
+        this.isLoading = false;
       },
       (error) => {
         this.errorPopup.display = true;

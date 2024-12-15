@@ -34,8 +34,8 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedDataService
   ) {}
   ngOnInit(): void {
-    this.sharedService.input$.subscribe((sportifs) => {
-      this.sportifs = sportifs;
+    this.sportifService.getAllSportifs().subscribe({
+      error(err) {},
     });
   }
 

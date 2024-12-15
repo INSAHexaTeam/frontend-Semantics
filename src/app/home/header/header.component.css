@@ -2,25 +2,30 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin: 20px;
+  margin: 20px 20px 40px 20px;
 }
+
 .icon {
   width: 100px;
   height: 100px;
 }
+
 .top-left {
   display: flex;
   gap: 10px;
 }
+
 .top-left-text {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
+
 h1,
 h3 {
   margin: 0;
 }
+
 input[type="text"] {
   width: 100%;
   padding: 12px 20px;
@@ -29,6 +34,7 @@ input[type="text"] {
   border: 2px solid #ccc;
   border-radius: 4px;
 }
+
 button {
   background-color: #d6af4b;
   color: white;
@@ -38,12 +44,14 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .top-right {
   display: flex;
   gap: 10px;
   justify-content: center;
   flex-direction: column;
 }
+
 .hexa-team {
   display: flex;
   justify-content: center;
@@ -52,11 +60,13 @@ button {
   width: 100px;
   height: 100px;
 }
-.hexa-team > img {
+
+.hexa-team>img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
+
 .suggestions {
   list-style-type: none;
   margin: 0;
@@ -66,10 +76,13 @@ button {
   background-color: #fff;
   max-height: 200px;
   overflow-y: auto;
-  position: absolute; /* Position relative au parent */
-  width: 100%; /* Ajustez si nécessaire */
+  position: absolute;
+  /* Position relative au parent */
+  width: 100%;
+  /* Ajustez si nécessaire */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 100; /* Assurez-vous que la liste est au-dessus des autres éléments */
+  z-index: 100;
+  /* Assurez-vous que la liste est au-dessus des autres éléments */
 }
 
 .suggestions li {
@@ -92,6 +105,7 @@ button {
 .suggestions li:not(:last-child) {
   border-bottom: 1px solid #eaeaea;
 }
+
 .search {
   width: 100%;
   position: relative;
@@ -103,11 +117,13 @@ button {
   align-items: center;
   flex-direction: column;
 }
+
 .up {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .down {
   width: 100%;
 }

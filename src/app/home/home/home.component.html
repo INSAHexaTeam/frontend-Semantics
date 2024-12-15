@@ -40,7 +40,10 @@
   </div>
   <div class="cardList">
     @for(sport of this.sports_display; track sport.name){
-    <app-sport-card [sport]="sport"></app-sport-card>
+    <app-sport-card
+      [sport]="sport"
+      (click)="sportDetails(sport)"
+    ></app-sport-card>
     }
   </div>
 

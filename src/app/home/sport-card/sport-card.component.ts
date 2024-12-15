@@ -14,6 +14,6 @@ export class SportCardComponent {
   constructor() { }
 
   handleImageError(event: any) {
-    event.target.src = 'assets/sports.png'; 
+    event.target.src = 'assets/sports.png';
   }
 }

@@ -1,12 +1,18 @@
 <app-error></app-error>
 <div class="head">
-  <img
-    [src]="this.sportif?.image || 'assets/user.png'"
-    alt="image de {{ this.sportif?.name }}"
-    (error)="handleImageError($event)"
-  />
-  <h3>{{ this.sportif?.name }}</h3>
-  <p>{{ this.sportif?.description }}</p>
+  <div class="content-container">
+    <div class="image-container">
+      <img
+        [src]="this.sportif?.image || 'assets/user.png'"
+        alt="image de {{ this.sportif?.name }}"
+        (error)="handleImageError($event)"
+      />
+    </div>
+    <div class="info-container">
+      <h2>{{ this.sportif?.name }}</h2>
+      <p class="description">{{ this.sportif?.description }}</p>
+    </div>
+  </div>
   <table>
     <thead>
       <tr>

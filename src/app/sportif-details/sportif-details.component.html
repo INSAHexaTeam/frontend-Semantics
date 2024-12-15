@@ -11,6 +11,59 @@
     <div class="info-container">
       <h2>{{ this.sportif?.name }}</h2>
       <p class="description">{{ this.sportif?.description }}</p>
+
+      <div class="sports-and-medals">
+        <div class="sports-list" *ngIf="sportif?.listSports?.length">
+          <h3>Sports pratiqués :</h3>
+          <div class="sports-container">
+            @for(sport of sportif?.listSports ?? []; track sport) {
+              <span class="sport-tag" (click)="onSportClick(sport)">{{ sport }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Section médailles -->
+        <div class="medals-container" *ngIf="hasMedals()">
+          <div class="medal-item" *ngIf="sportif?.nbGoldMedals">
+            <div class="medal-wrapper">
+              <img src="assets/or.png" alt="Médaille d'or" class="medal-icon" />
+              <div class="medal-tooltip">
+                <h4>Médailles d'or</h4>
+                @for(medal of sportif?.goldMedals; track medal) {
+                <p>- <b>{{ medal }}</b></p>
+                }
+              </div>
+            </div>
+            <span class="medal-count">{{ sportif?.nbGoldMedals }}</span>
+          </div>
+
+          <div class="medal-item" *ngIf="sportif?.nbSilverMedals">
+            <div class="medal-wrapper">
+              <img src="assets/argent.png" alt="Médaille d'argent" class="medal-icon" />
+              <div class="medal-tooltip">
+                <h4>Médailles d'argent</h4>
+                @for(medal of sportif?.silverMedals; track medal) {
+                <p>- <b>{{ medal }}</b></p>
+                }
+              </div>
+            </div>
+            <span class="medal-count">{{ sportif?.nbSilverMedals }}</span>
+          </div>
+
+          <div class="medal-item" *ngIf="sportif?.nbBronzeMedals">
+            <div class="medal-wrapper">
+              <img src="assets/bronze.png" alt="Médaille de bronze" class="medal-icon" />
+              <div class="medal-tooltip">
+                <h4>Médailles de bronze</h4>
+                @for(medal of sportif?.bronzeMedals; track medal) {
+                <p>- <b>{{ medal }}</b></p>
+                }
+              </div>
+            </div>
+            <span class="medal-count">{{ sportif?.nbBronzeMedals }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <table>

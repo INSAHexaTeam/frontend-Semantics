@@ -7,6 +7,7 @@ export interface Sportif {
   linkToPage: string;
   name: string;
   nationality: string;
+  listSports: string[];
 }
 export interface SportifFullDescription {
   birthDate: string;

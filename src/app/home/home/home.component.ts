@@ -8,6 +8,7 @@ import { SportifCardComponent } from '../sportif-card/sportif-card.component';
 import { Router } from '@angular/router';
 import { SportCardComponent } from '../sport-card/sport-card.component';
 import { LoadingScreenComponent } from '../../popup/loading-screen/loading-screen.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -44,25 +45,31 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Chargement initial des sportifs
-    this.SportifService.getAllSportifs().subscribe((s: Sportif[]) => {
-      this.sportifs = s;
-      this.sportifsTotalPages = Math.ceil(
-        this.sportifs.length / this.itemsPerPage
-      );
-      this.has_list = true;
-      this.isLoading = false;
-    });
+    // Chargement initial des sportifs et des sports en parallèle
+    forkJoin({
+      sportifs: this.SportifService.getAllSportifs(),
+      sports: this.SportService.getAllOlympicSports()
+    }).subscribe({
+      next: (data) => {
+        this.sportifs = data.sportifs;
+        this.sports = data.sports;
 
-    // Chargement initial des sports
-    this.SportService.getAllOlympicSports().subscribe((s: Sport[]) => {
-      this.sports = s;
-      this.sportsTotalPages = Math.ceil(this.sports.length / this.itemsPerPage);
+        this.sportifsTotalPages = Math.ceil(
+          this.sportifs.length / this.itemsPerPage
+        );
+        this.sportsTotalPages = Math.ceil(
+          this.sports.length / this.itemsPerPage
+        );
 
-      this.updateSportDisplayedItems();
-      this.updateSportifDisplayedItems();
-      this.has_list = true;
-      this.isLoading = false;
+        this.updateSportDisplayedItems();
+        this.updateSportifDisplayedItems();
+        this.has_list = true;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading data:', error);
+        this.isLoading = false;
+      }
     });
 
     this.sharedDataService.data$.subscribe((data) => {
@@ -118,8 +125,6 @@ export class HomeComponent implements OnInit {
   }
 
   sportifDetails(sportif: Sportif) {
-    console.log(sportif);
-
     this.router.navigate(['sportif', sportif.athleteId]);
   }
 

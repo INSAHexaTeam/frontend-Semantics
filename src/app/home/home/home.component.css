@@ -1,6 +1,7 @@
 main {
-  height: 80vh;
+  height: 100vh;
 }
+
 .cardList {
   display: flex;
   flex-direction: row;
@@ -21,7 +22,7 @@ app-sport-card {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-top: 20px;
+  margin-bottom: 40px;
   padding: 20px;
 }
 

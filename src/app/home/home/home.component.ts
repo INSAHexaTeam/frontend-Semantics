@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     private SportifService: SportifService,
     private SportService: SportService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Chargement initial des sportifs
@@ -123,6 +123,10 @@ export class HomeComponent implements OnInit {
     console.log(sportif);
 
     this.router.navigate(['sportif', sportif.athleteId]);
+  }
+
+  sportDetails(sport: Sport) {
+    this.router.navigate(['/sport', sport.name], { state: { sport: sport } });
   }
 
   @HostListener('window:keyup', ['$event'])

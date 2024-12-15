@@ -59,4 +59,8 @@ export class SportifDetailsComponent {
       })
     );
   }
+
+  handleImageError(event: any) {
+    event.target.src = 'assets/user.png';
+  }
 }

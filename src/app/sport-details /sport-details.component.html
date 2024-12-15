@@ -1,0 +1,20 @@
+<app-error></app-error>
+<div class="head">
+  <div class="content-container">
+    <div class="image-container">
+      <img
+        [src]="this.sport.image || 'assets/sports.png'"
+        alt="image de {{ this.sport.name }}"
+        (error)="handleImageError($event)"
+      />
+    </div>
+    <div class="info-container">
+      <h3>{{ this.sport.name }}</h3>
+      <p class="description">{{ this.sport.description }}</p>
+      <p *ngIf="this.sport.teamSize" class="team-size">
+        Nombre de joueur dans l'équipe : {{ this.sport.teamSize }}
+      </p>
+    </div>
+  </div>
+</div>
+<app-loading-screen [display]="this.isLoading"></app-loading-screen>

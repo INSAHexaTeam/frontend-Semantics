@@ -4,15 +4,18 @@ import { SportifService } from '../_services/sportif.service';
 import { SportifFullDescription } from '../_interfaces/sportif';
 import { ErrorComponent } from '../popup/error/error.component';
 import { catchError, of, throwError } from 'rxjs';
+import { LoadingScreenComponent } from '../popup/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-sportif-details',
   standalone: true,
-  imports: [ErrorComponent],
+  imports: [ErrorComponent, LoadingScreenComponent],
   templateUrl: './sportif-details.component.html',
   styleUrl: './sportif-details.component.css',
 })
 export class SportifDetailsComponent {
+  isLoading: boolean = true;
+
   athleteId: string | null = '';
   sportif: SportifFullDescription | null = null;
   entries: any[] = [];
@@ -30,6 +33,7 @@ export class SportifDetailsComponent {
         let sportifInfo = this.filterNonEmptyFields(data);
 
         this.entries = Object.entries(sportifInfo);
+        this.isLoading = false;
       },
       (error) => {
         this.errorPopup.display = true;

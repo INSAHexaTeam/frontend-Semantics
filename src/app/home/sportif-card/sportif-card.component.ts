@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Sportif } from '../../_interfaces/sportif';
 import { Router } from '@angular/router';
+import { LoadingScreenComponent } from '../../popup/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-sportif-card',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SportifCardComponent {
   @Input() sportif!: Sportif;
+
   constructor() {}
   handleImageError(event: any) {
     event.target.src = 'assets/user.png';

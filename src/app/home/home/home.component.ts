@@ -7,15 +7,18 @@ import { Sport } from '../../_interfaces/sport';
 import { SportifCardComponent } from '../sportif-card/sportif-card.component';
 import { Router } from '@angular/router';
 import { SportCardComponent } from '../sport-card/sport-card.component';
+import { LoadingScreenComponent } from '../../popup/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SportifCardComponent, SportCardComponent],
+  imports: [SportifCardComponent, SportCardComponent, LoadingScreenComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  isLoading: boolean = true;
+
   sportifs: Sportif[] = [];
   sports: Sport[] = [];
   has_list: boolean = false;
@@ -48,6 +51,7 @@ export class HomeComponent implements OnInit {
         this.sportifs.length / this.itemsPerPage
       );
       this.has_list = true;
+      this.isLoading = false;
     });
 
     // Chargement initial des sports
@@ -58,6 +62,7 @@ export class HomeComponent implements OnInit {
       this.updateSportDisplayedItems();
       this.updateSportifDisplayedItems();
       this.has_list = true;
+      this.isLoading = false;
     });
 
     // Souscription aux changements de données

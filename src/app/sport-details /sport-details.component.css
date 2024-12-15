@@ -49,3 +49,33 @@ h3 {
   color: #666;
   font-weight: 500;
 }
+
+.athletes-list {
+  margin-top: 20px;
+}
+
+h4 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.athletes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.athlete-tag {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  padding: 5px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.athlete-tag:hover {
+  background-color: #1a73e8;
+  color: white;
+}

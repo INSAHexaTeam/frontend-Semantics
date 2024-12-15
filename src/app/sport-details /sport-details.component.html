@@ -14,6 +14,18 @@
       <p *ngIf="this.sport.teamSize" class="team-size">
         Nombre de joueur dans l'équipe : {{ this.sport.teamSize }}
       </p>
+
+      <!-- Ajout de la liste des athlètes -->
+      <div class="athletes-list" *ngIf="athletes.length > 0">
+        <h4>Athlètes pratiquant ce sport :</h4>
+        <div class="athletes-container">
+          @for(athlete of athletes; track athlete.athleteId) {
+            <span class="athlete-tag" (click)="onAthleteClick(athlete.athleteId)">
+              {{ athlete.name }}
+            </span>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </div>

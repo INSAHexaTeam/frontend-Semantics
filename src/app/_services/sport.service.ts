@@ -15,4 +15,8 @@ export class SportService {
       Sport[]
     >;
   }
+
+  getAllSports(): Observable<Sport[]> {
+    return this.http.get(`${ApiURL}/fetchAllSports`) as Observable<Sport[]>;
+  }
 }

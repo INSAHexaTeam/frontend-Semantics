@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     // Chargement initial des sportifs et des sports en parallèle
     forkJoin({
       sportifs: this.SportifService.getAllSportifs(),
-      sports: this.SportService.getAllOlympicSports()
+      sports: this.SportService.getAllSports()
     }).subscribe({
       next: (data) => {
         this.sportifs = data.sportifs;

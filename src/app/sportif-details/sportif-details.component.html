@@ -16,8 +16,12 @@
         <div class="sports-list" *ngIf="sportif?.listSports?.length">
           <h3>Sports pratiqués :</h3>
           <div class="sports-container">
-            @for(sport of sportif?.listSports ?? []; track sport) {
-              <span class="sport-tag" (click)="onSportClick(sport)">{{ sport }}</span>
+            @for (sport of getSortedSports(); track sport) {
+              @if (isValidSport(sport)) {
+                <span class="sport-tag clickable" (click)="onSportClick(sport)">{{ sport }}</span>
+              } @else {
+                <span class="sport-tag disabled">{{ sport }}</span>
+              }
             }
           </div>
         </div>

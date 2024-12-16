@@ -97,9 +97,6 @@ export class SportifDetailsComponent {
   }
 
   isValidSport(sport: any): boolean {
-    console.log("sport", sport);
-    console.log("this.sports", this.sports);
-    console.log("this.sports.some(s => s.name === sport)", this.sports.some(s => s.name === sport));
     return this.sports.some(s => s.name === sport);
   }
 

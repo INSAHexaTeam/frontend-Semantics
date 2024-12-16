@@ -36,7 +36,7 @@ export class SportifDetailsComponent {
     this.athleteId = this.route.snapshot.paramMap.get('id');
     forkJoin({
       sportif: this.sportifService.getSportifInfo(this.athleteId!),
-      sports: this.sportService.getAllOlympicSports()
+      sports: this.sportService.getAllSports()
     }).subscribe({
       next: (data) => {
         this.sportif = data.sportif;
@@ -94,5 +94,25 @@ export class SportifDetailsComponent {
       this.sportif?.nbSilverMedals ||
       this.sportif?.nbBronzeMedals
     );
+  }
+
+  isValidSport(sport: any): boolean {
+    console.log("sport", sport);
+    console.log("this.sports", this.sports);
+    console.log("this.sports.some(s => s.name === sport)", this.sports.some(s => s.name === sport));
+    return this.sports.some(s => s.name === sport);
+  }
+
+  getSortedSports(): string[] {
+    if (!this.sportif?.listSports) return [];
+
+    return this.sportif.listSports.sort((a, b) => {
+      const isAValid = this.isValidSport(a);
+      const isBValid = this.isValidSport(b);
+
+      if (isAValid && !isBValid) return -1;
+      if (!isAValid && isBValid) return 1;
+      return 0;
+    });
   }
 }

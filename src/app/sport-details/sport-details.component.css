@@ -78,4 +78,5 @@ h4 {
 .athlete-tag:hover {
   background-color: #1a73e8;
   color: white;
+  transform: scale(1.05);
 }

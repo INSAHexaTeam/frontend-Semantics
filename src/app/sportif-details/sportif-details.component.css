@@ -208,13 +208,14 @@ tbody td {
 
 .sport-tag.clickable {
   cursor: pointer;
-  background-color: #007bff;
-  color: white;
+  background-color: #e8f0fe;
+  color: #1a73e8;
   transition: all 0.3s ease;
 }
 
 .sport-tag.clickable:hover {
-  background-color: #0056b3;
+  background-color: #1a73e8;
+  color: white;
   transform: scale(1.05);
 }
 
